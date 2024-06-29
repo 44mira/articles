@@ -92,7 +92,7 @@ functional languages, that is:
 > A function always take *one* argument and *returns* one result.
 
 And as you can tell, it does its job as a constraint really well because— well,
-it is very constraining. However, this can worked around using this pattern
+it is very constraining. However, this can be worked around using this pattern
 called **currying**.
 
 This is the actual equivalent of the Haskell code in Go code:
