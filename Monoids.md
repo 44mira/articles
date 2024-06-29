@@ -166,10 +166,15 @@ functions in its definition.
 > result remains within the domain of the type, AND there exists an identity
 > element.
 
-Or essentially, if you have some binary function `f` over some type `a`,
+Or essentially, you have some binary function `f` over some type `a`,
 meaning both arguments of `f` be of type `a`, and the result is still of type
 `a`. And there exists an element of type `a` that when applied to any other
 element of type `a` over `f`, results in the same element.
+
+And to another degree of simplification: if you call the function `f` with two arguments of
+type `a`, the result should be of type `a`. And there should exist a value of type `a`, which
+we will call the *identity* element, that when provided as an argument— will return the **other**
+argument in the call.
 
 Here are some examples of Monoids:
 
@@ -195,7 +200,6 @@ type safety.
 
 incrementNumber :: Int -> Int
 incrementNumber a = 4 * 5 + 3 + a
-
 ```
 
 As you can see, they all share the same signature, and this is because they are
