@@ -195,16 +195,16 @@ functions to a type in which in it is a Monoid over, you can easily guarantee
 type safety.
 
 ```hs
-(+) :: Int -> Int
-(*) :: Int -> Int
+(+) :: Int -> Int -> Int
+(*) :: Int -> Int -> Int
 
 incrementNumber :: Int -> Int
 incrementNumber a = 4 * 5 + 3 + a
 ```
 
-As you can see, they all share the same signature, and this is because they are
-a Monoid over the two composed functions, and therefore `Int` is also a Monoid
-over `incrementNumber`!
+As you can see, they both operations share the same signature, and this is because 
+they are a Monoid over the two composed functions, guaranteeing the same type is
+returned.
 
 ## Usage
 
