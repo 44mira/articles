@@ -308,7 +308,7 @@ So now we have a list of `(Char -> Any)`, which if you remember, is now a list o
 Monoids that can be combined into one `(Char -> Any)` using `fold`, which is
 equal to applying them one after another!
 
-> NOTE: The Monoid's binary function is associatve, meaning it can be applied in
+> NOTE: The Monoid's binary function is associative, meaning it can be applied in
 > any order.
 
 And then lastly, we extract our value from the `Any` wrapper, and then negate it
