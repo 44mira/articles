@@ -127,6 +127,8 @@ And now we should be able to read all common Haskell syntax!
 ($) f a = f a
 infixr 0 $  -- the left argument is evaluated first
 
+-- infix versions of functions have the first argument on the left, and the second on the right
+-- f . g == (.) f g
 ans :: [Int]
 ans = reverse . map (\a -> a*a) $ [4, 5, 3, 2]
 ```
@@ -193,7 +195,6 @@ psi = f => g => a => b => f (g(a)) (g(b))
 eq = a => b => a == b   // helper function for checking equality
 
 // A simple way to compare arrays in javascript is to turn *both* of them into strings first.
-H
 a = [2, 3, 4]
 b = [3, 4, 5]
 
