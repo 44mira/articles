@@ -1,8 +1,9 @@
 # Functional Patterns: Composition and Implicitness
 
-> This is a part of a series of articles entitled *Functional Patterns*.
+> This is part 2 of a series of articles entitled *Functional Patterns*.
 >
 > Make sure to check out the rest of the articles!
+> 1. [The Monoid](https://dev.to/if-els/functional-patterns-the-monoid-22ef)
 
 ## Partial Application
 
