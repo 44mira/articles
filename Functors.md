@@ -220,6 +220,8 @@ From this definition we can surmise that all we need to give to this function `f
 
 > Yes, this means Haskell's `Functor` typeclass is actually a definition for *endofunctors*, woops!
 
+![image](https://github.com/44mira/articles/assets/116419708/fcef5a8c-95f1-420e-959b-d5a17bdb6f1d)
+
 If all of that word vomit was scary, a very oversimplified version for the requirement of the `Functor` typeclass is that you are able to `map` values to other values in the same category.
 
 Arguably the most common `Functor` we use are arrays:
