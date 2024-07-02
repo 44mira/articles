@@ -53,7 +53,7 @@ We've defined a type, but we aren't always going to be sure this type has the *c
 
 So contrary to the name of *generics*, we're going to have to get a bit more *specific, but still general*.
 
-This is where **typeclasses** come in, or also known more commonly in the imperative world as **interfaces**. Again, if you're using any language that has been made no later than C++, you should have access to some implementation of interfaces.
+This is where **typeclasses** come in, or also known more commonly in the imperative world as **interfaces**. Again, if you're using any language that has been made later than C++, you should have access to some implementation of interfaces.
 
 Interfaces, compared to generics, specify some sort of *capability* of types that can be *categorized* under it.
 
