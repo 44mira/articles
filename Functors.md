@@ -67,7 +67,7 @@ double = (*2)
 or in Go:
 
 ```go
-// We first create an interface that is the intersection of floats and integers.
+// We first create an interface that is the union of floats and integers.
 type Num interface {
     ~int | ~float64
     // ... plus all other num types
