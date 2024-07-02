@@ -291,6 +291,16 @@ So all that it takes to fall under the `Functor` (again, endofunctor), interface
 
 > This is another simplifcation, functors also need to have property of identity and composition.
 
+To put simply, whenever you do a `map`, you're not only transforming the elements of your array (or struct), you're also transforming the functions you are able to apply on this array (or struct). This is what we mean by mapping **both** *objects* and *morphisms*.
+
+This is important to note as even though we end up in the same category (in this context, we map an array, which results in another array), these might have differing functions available to them.
+
+Examples:
+
+- You can `sum` a list of `Int` but not a list of `String`
+- In Python, You can `.join()` a list of `str` but not a list of `int`
+- Note that these are both still arrays, so they belong in the same category, but they have different morphisms.
+
 ---
 
 Apologies if this article contained **way** more math than applications, but understanding these definitions will help us greatly in understanding the harder patterns later in this series, namely `Applicatives` and finally `Monads`.
