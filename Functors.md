@@ -291,15 +291,11 @@ So all that it takes to fall under the `Functor` (again, endofunctor), interface
 
 > This is another simplifcation, functors also need to have property of identity and composition.
 
-To put simply, whenever you do a `map`, you're not only transforming the elements of your array (or struct), you're also transforming the functions you are able to apply on this array (or struct). This is what we mean by mapping **both** *objects* and *morphisms*.
+To put simply, whenever you do a `map`, you're not only transforming the elements of your array (or struct), you're also transforming the functions you are able to apply on this array (or struct). This is what we mean by mapping **both** *objects* and *morphisms* to different matching objects and morphisms in the *same* category.
 
-This is important to note as even though we end up in the same category (in this context, we map an array, which results in another array), these might have differing functions available to them.
+This is important to note as even though we end up in the same category (in this context, we map an array, which results in another array), these might have differing functions or implementations available to them (though most of them will be mapped to their relatively equivalent functions, such as a `reverse` on an array of `Int` to `reverse` on an array of `Float`).
 
-Examples:
-
-- You can `sum` a list of `Int` but not a list of `String`
-- In Python, You can `.join()` a list of `str` but not a list of `int`
-- Note that these are both still arrays, so they belong in the same category, but they have different morphisms.
+> This is where the oversimplifcation kinda messes us up a bit, because if we follow only our definition, we could say that reducing functions such as `sum` and `concat` are functors from the category of arrays to atoms, but this isn't necessarily true. As functors also require that you *preserve* the *categorical structure*, which won't be covered in this article series as that's way too deeply rooted in category theory.
 
 ---
 
