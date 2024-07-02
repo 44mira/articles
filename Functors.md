@@ -159,7 +159,7 @@ This honestly is kind of a bummer, but no worries, as most of the time you're go
 
 > Category theory is a general theory of mathematical structures and their relations.
 
-We've briefly brushed upon *category theory* back in `The Monoid`, and we'd like to keep it that way, only mere close encounters. I will be referencing it here and there, but rest assured: you won't need to have a background in it to grasp whatever follows.
+We've briefly brushed upon *category theory* back in `The Monoid`, and we'd like to keep it that way, only close encounters. I will be referencing it here and there, but rest assured: you won't need to have a background in it to grasp whatever follows.
 
 However, there is no doubt that we have encountered *sets* before.
 
