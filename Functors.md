@@ -287,6 +287,8 @@ instance Functor Pair where
 
 So all that it takes to fall under the `Functor` (again, endofunctor), interface is to have a definition on how to *map* the contents of the struct to any other type (including its own).
 
+> This is another simplifcation, functors also need to have property of identity and composition.
+
 ---
 
 Apologies if this article contained **way** more math than applications, but understanding these definitions will help us greatly in understanding the harder patterns later in this series, namely `Applicatives` and finally `Monads`.
