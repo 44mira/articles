@@ -150,11 +150,11 @@ def factorial_t(a = 1, n):
 
 The difference in these implementations is that— in tail recursion, we don't *need* the previous stack frame. We don't need anything from the previous call. We can store all the information we need in our `a` parameter, which stands for the *accumulator* (because this is where you accumulate your computation, instead of relying on the call stack).
 
-[ ILLUSTRATION 1 ]
+![factorial](https://github.com/44mira/articles/assets/116419708/586702d4-b609-446c-808e-7f30a58aff0f)
 
-In fact, we can just *re-use* our stack frame for our new call. This is called **tail-call optimization**, a compiler trick done by functional languages (and some imperative languages such as Rust, Lua, and Javascript) wherein it sees that there is no more computation needed after the recursive call, so it reuses the same stack frame.
+In fact, we can just *re-use* our stack frame for our new call. This is called **tail-call optimization**, a compiler trick done by functional languages (and some imperative languages such as Rust, Lua, and Javascript) wherein it sees that there is no more computation needed after the recursive call, so it reuses the same stack frame. Not only is this much faster, it actually removes the possibility of a stack overflow *entirely*.
 
-[ ILLUSTRATION 2 ]
+![image](https://github.com/44mira/articles/assets/116419708/1cf0e0f0-b266-4f13-8f56-ec4fe3bd34fd)
 
 To better understand what it means to no longer have any other computation past the recursive call, think about how when you get to the lowest depth of head recursion, you now have to go back down the call stack, multiplying the accumulated `n`s while you were nesting calls. But in tail-recursion, you can get your return value (your accumulator) when you get to your final recursive call, no need for traversing the call stack twice.
 
