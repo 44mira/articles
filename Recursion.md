@@ -53,7 +53,7 @@ This *immutability* of state allows us to think in a simpler, and more *pure* wa
 
 However, this does not come without its consequence (as it is a constraint, after all). But like any other constraint in functional programming, there is an elegant workaround to it.
 
-In this article we'll take about *iteration*, in the pure functional sense, and realizing how overrated `for`-loops are.
+In this article we'll talk about *iteration*, in the pure functional sense, and realizing how overrated `for`-loops are.
 
 ## Recursion
 
@@ -102,7 +102,7 @@ def loop(n) when n >= 10, do: nil
 def loop(n), do: loop n+1
 ```
 
-So much cleaner (and the only way to do standard iteration).
+So much cleaner (and the only way to do standard iteration in these languages).
 
 Do note that although these do the same amount of iteration, they don't actually equal each other exactly. And that's because most `for`-loops rely on mutable state to be useful. The reason you're probably going to be looping 10 times is imperative, or introduces some side-effect (like printing to standard output). And to make up for that, functional recursions will always have you returning something, the reason you did recursion in the first place, no side-effects.
 
@@ -216,6 +216,15 @@ max = foldr1 compare
     where compare a b           -- a helper function is defined to handle the condition
              | a > b = a
              | otherwise = b
+
+{-
+    ARRAY       |  ACCUMULATOR
+    [3 4 2 5]       3
+    [4 2 5]         3
+    [2 5]           4
+    [5]             4
+    [ ]             5
+-}
 ```
 
 And here is the imperative pattern that `reduce` generalizes:
@@ -223,6 +232,8 @@ And here is the imperative pattern that `reduce` generalizes:
 ```go
 // go
 
+// the input array is of type U because your accumulator doesn't have to be
+// the same type as your elements
 func reduce[T any, U any](arr []U, fn func(U, T) T, initial T) T {
     result := initial
 
