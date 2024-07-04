@@ -150,7 +150,7 @@ sum . zipWith (*) [1..] $ points
 totalScore = sum . zipWith (*) [1..]
 ```
 
-[ ILLUSTRATION 1 ]
+![image](https://github.com/44mira/articles/assets/116419708/17a2744d-0dfb-4b7e-9c14-0708fd178ac5)
 
 ## Applicatives
 
@@ -350,3 +350,7 @@ And if you think about it— applying an infinite list of `id` to a finite list 
 Goes without saying; there are so many more *applications* for the `Applicative` pattern out there, I hope you find them and recognize them!
 
 And that concludes the penultimate part of this series! I hope you're enjoying and are able to keep up, if not, feel free to contact me for clarifications. I hope you learned something new, and see you in the last part `The Monad`!
+
+---
+
+Reference: https://en.wikibooks.org/wiki/Haskell/Applicative_functors
