@@ -1,4 +1,4 @@
-> This is part 4 of a series of articles entitled *Functional Patterns*.
+> This is part 5 of a series of articles entitled *Functional Patterns*.
 >
 > Make sure to check out the rest of the articles!
 >
