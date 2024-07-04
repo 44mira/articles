@@ -97,7 +97,7 @@ for i in range(len(b)):
 return c
 ```
 
-We can sim"b"plify this further by realizing our `a` array is actually just `range(len(b))`.
+We can simplify this further by realizing our `a` array is actually just `range(len(b))`.
 
 ```python
 a = range(len(b))
@@ -137,7 +137,7 @@ And since now we're in the array *category* once again, we can simply `map` or `
 ```hs
 points = [4, 3, 8, 1]
 
--- we pattern match on the tuple to add both elements
+-- we pattern match on the tuple to multiply both elements
 sum . map (\(a,b) -> a * b) . zip [1..] $ points
 
 -- alternatively we can use the `uncurry` function, which does that
@@ -292,7 +292,7 @@ All within a single line.
 
 We can actually implement the `zip` behavior of lists using an `Applicative` interface!
 
-Let us define a `ZipList` typeclass.
+Let us define a `ZipList` data type.
 
 ```hs
 -- we define our struct that holds an array of `a`
@@ -347,7 +347,7 @@ And if you think about it— applying an infinite list of `id` to a finite list 
 
 ---
 
-Goes without saying; there are so many more *applications* for the `Applicative` pattern out there, I hope you find them and recognize them!
+It goes without saying; there are so many more *applications* for the `Applicative` pattern out there, I hope you find them and recognize them!
 
 And that concludes the penultimate part of this series! I hope you're enjoying and are able to keep up, if not, feel free to contact me for clarifications. I hope you learned something new, and see you in the last part `The Monad`!
 
