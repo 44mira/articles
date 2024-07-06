@@ -1,4 +1,4 @@
-> This is part 4 of a series of articles entitled *Functional Patterns*.
+> This is the final part of a series of articles entitled *Functional Patterns*.
 >
 > Make sure to check out the rest of the articles!
 >
@@ -69,6 +69,8 @@ Recall our definition of a `Monoid`.
 > A type is said to be a Monoid over some binary function or operation if the result remains within the domain of the type, AND there exists an identity element.
 
 That can only mean one thing, a `Monad` is just defining some *binary* operation *over* endofunctors! This is the next piece of our puzzle, let's take a look at the definition of `bind` specifically:
+
+> If you're a bit confused, remember that a `Monoid` is merely an interface that requires you have an operation that takes two arguments of the same type, and produce the same type. This is why we can say `+` is a Monoid over `Int`, and also `Int` is a monoid over `+`.
 
 ```hs
 class Applicative m => Monad m where
