@@ -96,7 +96,7 @@ Let's add a few spaces to highlight the pattern and swap out `>>=` with `=<<`, i
 
 So we see that they all in fact *deal* with some functor, but in slightly different ways. 
 
-- `fmap` takes an *function* and then a *wrapped* value, mapping the function *over* the wrapped value.
+- `fmap` takes a *function* and then a *wrapped* value, mapping the function *over* the wrapped value.
 - `<*>` takes a *wrapped* function and a wrapped value, applying the wrapped function over the wrapped value.
 - `>>=` takes a wrapped value, a function that *returns* a wrapped value, and then returns that wrapped value.
 
@@ -105,3 +105,5 @@ Moreover, because it is a monoid *over* endofunctors, this means:
 - We can chain these together *associatively*
 - Our final return type is an endofunctor in the *same* category
     - which in turn means, our final type *stays* in the same category.
+
+
