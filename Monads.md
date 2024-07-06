@@ -22,7 +22,7 @@ No pattern had *fascinated* me more than the Monad, and for a while I had obsses
 
 For a while I had been reading about this pattern that kept getting *praised* in the functional programming community, but I hadn't come across a definition— an explanation, that did *it* for me.
 
-But somewhere along that road, after all those times sunk into understanding this pattern— I felt like I could comfortably say that I had reached an understanding on it. It stopped being a "Aha! I think I got it!"
+But somewhere along that road, after all those times sunk into understanding this pattern— I felt like I could comfortably say that I had reached an understanding on it. It stopped being an "Aha! I think I got it!"
 
 And that really was the motivation behind this article series, to help curious individuals tackling this niche I devled into a year prior, have a better time than I did. I told myself:
 
