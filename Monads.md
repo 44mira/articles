@@ -106,4 +106,161 @@ Moreover, because it is a monoid *over* endofunctors, this means:
 - Our final return type is an endofunctor in the *same* category
     - which in turn means, our final type *stays* in the same category.
 
+## Monads in Practice
 
+Lets say we have an arbitrary *cipher*, wherein characters in the alphabet are converted to any other arbitrary character in the alphabet. We keep this cipher as a *dictionary* (also known as a *hashmap*) that takes an encoded `Char` and returns the decoded `Char`.
+
+```hs
+import qualified Data.Map as M
+
+cipher :: M.Map Char Char
+cipher = undefined -- definition omitted
+```
+
+Now we create a `decode` function, remember that this operation *might* fail (when the key doesn't exist), so we have to use the `Maybe` data type.
+
+```hs
+decodeChar :: Char -> Maybe Char
+decodeChar = (`M.lookup` cipher)    -- wrapping in backticks turn a function into infix form
+                                    -- so we're partially applying the second argument
+
+-- equivalent to:
+-- decodeChar = flip M.lookup cipher   -- C-combinator, flips the arguments
+```
+
+`M.lookup` is a function that, well, does a lookup on a `M.Map`, with your given key (in this case our encoded `Char`), and returns a `Maybe Char`, because the key might not exist in the `M.Map` in which case it will return a `Nothing`.
+
+Now say we want to *then* lowercase the resulting characters of our decoding. We would have to compose `toLower` function to our call, but there's one issue!
+
+```hs
+toLower :: Char -> Char
+```
+
+`toLower` doesn't take a `Maybe Char`! If we recall the available functor composers we have, this is actually no problem as this is just an `fmap`.
+
+```hs
+decodeChar = fmap toLower . (`M.lookup` cipher)
+
+-- or even ...
+
+-- we wrap the function in Maybe, then apply using `<*>`
+decodeChar = (pure toLower <*>) . (`M.lookup` cipher)
+```
+
+Now say we want to convert our lowercased character into its **ASCII** value, we would have to do *another* composition on `fmap`.
+
+```hs
+decodeChar :: Char -> Maybe Int
+decodeChar = fmap ord . fmap toLower . (`M.lookup` cipher)
+```
+
+And we can continue this for god knows how long, but the issue is starting to rear its head. This type of composition is kind of annoying to write! Let's try to write it using `Maybe`'s Monad `bind`.
+
+```hs
+decodeChar :: Char -> Maybe Int
+decodeChar c =
+  M.lookup c cipher
+    >>= return . toLower
+    >>= return . ord
+```
+
+This works! And is so much cleaner. We can see `return` make its appearance here, and the reason it's called `return`, is not because it *returns* value in the imperative sense, but because it's usually the last call you make inside a function required by `bind`, because you have to *return* to your Monad type!
+
+Let's think about that even deeper and realize that the reason we have to *return* to our Monad is because: while we're inside the function required by our `bind`, we implicitly *"unwrap"* our value, so we can do our own logic on it, before rewrapping it at the end, so we can now completely abstract "unwrapping"! 
+
+> Note the double-quotes on *unwrapping*, it's because we *aren't* actually unwrapping the value, as that might cause a runtime error depending on your data type's logic (unwrapping a `Nothing` causes an error).
+
+```hs
+decodeChar :: Char -> Maybe Int
+decodeChar c =
+  M.lookup c cipher
+    >>= return . ord . toLower
+```
+
+So now we can do our usual compositions, inside our Monad type! Moreover, Haskell has an even more legible syntax for this, the `do`.
+
+```hs
+decodeChar :: Char -> Maybe Int
+decodeChar c = do
+  decoded <- M.lookup c cipher -- Make value inside Maybe accessible
+
+  return . ord . toLower $ decoded
+```
+
+And in this form, the return being at the end of the call even resembles an *imperative* language!
+
+Note that because we've done our functions without unwrapping, we never risk unwrapping into a runtime error! Moreover, when you implement a `Monad`, it's up to you how you want to do their compositions, as long as you follow the 3 axioms of *left-identity*, *right-identity*, and *associativity*!
+
+> These axioms won't be covered here, but they shouldn't get in your way that often (and you'll rarely need to implement a monad in the first place)
+
+```hs
+concat . map (replicate 2) $ [1, 2, 3]  -- [ 1, 1, 2, 2, 3, 3 ]
+concatMap (replicate 2) $ [1,2,3]
+
+-- `bind` for the List monad is equivalent to `concatMap`!
+
+[1,2,3] >>= replicate 2
+```
+
+## Imperatively speaking,
+> But how is the concept of the Monad relevant to languages outside of Haskell and other functional languages? Is it relevant?
+
+First of all, it's not all about you, imperative programmer! Second, leveraging the concept of monads allow us to write *succinct* (well, after you write the code to force FP into your imperative program), and *chainable* code.
+
+Behold, the `Maybe` monad in Python:
+
+```python
+class Maybe:
+    def __init__(self, value) -> None:
+        self.value = value
+
+    @staticmethod
+    def just(value):
+        return Maybe(value)
+
+    @staticmethod
+    def nothing():
+        return Maybe(None)
+
+    def __str__(self) -> str:
+        match self.value:
+            case None:
+                return "Nothing"
+            case x:
+                return f"Just {x}"
+
+    def __eq__(self, other) -> bool:
+        return self.value == other.value
+
+    def bind(self, *fns):
+
+        for fn in fns:
+            if self.value == None:
+                return self.nothing()
+            self.value = fn(self.value).value
+
+        return self.just(self.value)
+
+
+def search(n, lst) -> Maybe:
+    for i, v in enumerate(lst):
+        if v == n:
+            return Maybe.just(i)
+    return Maybe.nothing()
+```
+
+```python
+result = search(4, [3, 4, 2]).bind(lambda a: Maybe.just(a+5))
+print(result) # Just 6
+
+result = search(5, [3, 4, 2]).bind(lambda a: Maybe.just(a+5))
+print(result) # Nothing
+```
+
+Incredible and outrageous. *Just* the perfect mix.
+
+---
+
+And that just about does it! I hope you enjoyed this entire series, it has been about a year in the making. I hope you learned something, and most importantly, enjoyed the time you invested! If you have any questions, feel free to contact me in my socials, or in the comments down below, I will try to make time.
+
+> What's the problem?
