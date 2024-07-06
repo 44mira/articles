@@ -168,6 +168,8 @@ This works! And is so much cleaner. We can see `return` make its appearance here
 
 Let's think about that even deeper and realize that the reason we have to *return* to our Monad is because: while we're inside the function required by our `bind`, we implicitly *"unwrap"* our value, so we can do our own logic on it, before rewrapping it at the end, so we can now completely abstract "unwrapping"! 
 
+![image](https://github.com/44mira/articles/assets/116419708/4b2492d7-3480-44bc-af9f-fd1b9fba80be)
+
 > Note the double-quotes on *unwrapping*, it's because we *aren't* actually unwrapping the value, as that might cause a runtime error depending on your data type's logic (unwrapping a `Nothing` causes an error).
 
 ```hs
@@ -264,3 +266,6 @@ Incredible and outrageous. *Just* the perfect mix.
 And that just about does it! I hope you enjoyed this entire series, it has been about a year in the making. I hope you learned something, and most importantly, enjoyed the time you invested! If you have any questions, feel free to contact me in my socials, or in the comments down below, I will try to make time.
 
 > What's the problem?
+
+![image](https://github.com/44mira/articles/assets/116419708/f21a9ca2-8bee-4304-be50-9382d490495e)
+
