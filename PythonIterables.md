@@ -71,7 +71,7 @@ b = iter(a)
 next(b) # 1
 b.__next__() # 1
 
-next(b) # 2
+next(b) # 2e
 next(b) # 3
 next(b) # 5
 ```
@@ -104,6 +104,6 @@ print('__iter__' in dir(a)) # True
 print('__next__' in dir(a)) # False
 ```
 
-That's odd, the list function has an `__iter__` method, but no `__next__`! Why is that?
+That's odd, the list object has an `__iter__` method, but no `__next__`! Why is that?
 
 ## Generators
