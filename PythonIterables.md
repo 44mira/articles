@@ -65,7 +65,7 @@ a = Fibonacci() # we create our object (this isn't an iterable yet)
 # Let's try calling the __next__ dunder method
 next(a) # AttributeError: 'Fibonacci' object has no attribute 'b' (because iter hasn't been called)
 
-b = iter(a)
+b = iter(a) # We bring our object into an iterable context (this is done implicitly in for loops)
 
 # both ways of calling the dunder method works
 next(b) # 1
