@@ -71,7 +71,7 @@ b = iter(a) # We bring our object into an iterable context (this is done implici
 next(b) # 1
 b.__next__() # 1
 
-next(b) # 2e
+next(b) # 2
 next(b) # 3
 next(b) # 5
 ```
