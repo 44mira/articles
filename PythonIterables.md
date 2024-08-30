@@ -181,9 +181,9 @@ print('__next__' in dir(x)) # True
 Since generators do have instances of the `__iter__` and `__next__` method, we can confirm that it is infact an iterator. And how is this relevant?
 
 Recall that:
-    - *Any* function becomes a generator when it has a `yield` inside of it.
-    - Generators are simply functions that return an iterator object, with it's `__next__` function as its definition (kind of)
-    - `__iter__` method is used to implicity return the object used for iteration whenever the context calls for it
+- *Any* function becomes a generator when it has a `yield` inside of it.
+- Generators are simply functions that return an iterator object, with it's `__next__` function as its definition (kind of)
+- `__iter__` method is used to implicity return the object used for iteration whenever the context calls for it
         - These contexts include being casted into a iterator with `iter`, being used as an iterable for a `for` loop, and as we'll later learn: being *unpacked*.
 
 We can infer that, under the hood, native Python iterables define their `__iter__` methods as generators, making the `__next__` absent from the class definition, but not from its iterator instance.
