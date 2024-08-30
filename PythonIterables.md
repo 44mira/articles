@@ -107,3 +107,97 @@ print('__next__' in dir(a)) # False
 That's odd, the list object has an `__iter__` method, but no `__next__`! Why is that?
 
 ## Generators
+
+Generators are special kinds of functions that instead of returning a single value, returns an *iterator* object. But instead of using the `return` keyword, it *implicility* returns the iterator object using `yield`. Let's see this in action by reimplementing our Fibonacci iterator.
+
+```python
+def Fibonacci():
+    a = 0
+    b = 1
+
+    while a < 100:
+        temp = a
+        a = b
+        b = temp + a
+
+        yield a
+
+
+a = Fibonacci() # our iterator object
+
+print(next(a)) # 1
+
+for num in a:
+    print(num)  # 2 .. 144
+```
+
+So how do we parse this syntax? On the initial call of our function `a = Fibonacci()`, this is when we got our iterator object, as seen by how we could call `__next__` and use it as an iterable in a `for` loop, but as we can clearly see, there is no explicit definition for the `__next__` method, as it is baked into the logic of the definition itself.
+
+Now what does this mean? Lets try to follow the execution of our iterator on the first 3 `__next__` calls (or `for` loop iterations):
+
+```
+--- first __next__ ---
+
+a is defined
+b is defined
+
+we enter the while loop
+we move forward with the fibonacci pattern
+we return a
+
+--- second __next__ ---
+
+we enter the while loop
+we move forward with the fibonacci pattern
+we return a
+
+--- third __next__ ---
+
+we enter the while loop
+we move forward with the fibonacci pattern
+we return a ...
+```
+
+We can see here that for every `__next__` call, we can think of our iterator running through our defined function up until it hits a `yield`, where it uses that value to return for that specific iteration. Moreover, for the next iterations, we simply pick up from the line after the `yield` where we left off.
+
+> This means that instead of having to raise `StopIteration` by ourselves, we can simply just let the function exit, greatly simplifying our conditions.
+
+> Note that this also means `return` in generators become analogous to `raise StopIteration`! (and are only provided values in advanced cases we won't cover here).
+
+So really, we aren't learning anything new here in the context of iterators, but a terser syntax and a more accessible interface for creating iterators!
+
+Let's go back to our cliffhanger from the last section, by taking a look at the `__dir__` of a generator.
+
+```python
+def a():        # a function becomes a generator in the presence of a `yield` keyword
+    yield 3
+
+x = a()         # we create our generator object
+
+print('__iter__' in dir(x)) # True
+print('__next__' in dir(x)) # True
+```
+
+Since generators do have instances of the `__iter__` and `__next__` method, we can confirm that it is infact an iterator. And how is this relevant?
+
+Recall that:
+    - *Any* function becomes a generator when it has a `yield` inside of it.
+    - Generators are simply functions that return an iterator object, with it's `__next__` function as its definition (kind of)
+    - `__iter__` method is used to implicity return the object used for iteration whenever the context calls for 
+        - These contexts include being casted into a iterator with `iter`, being used as an iterable for a `for` loop, and as we'll later learn: being *unpacked*.
+
+We can infer that, under the hood, native Python iterables define their `__iter__` methods as generators, making the `__next__` absent from the class definition, but not from its iterator instance.
+
+```python
+a = [1,2]
+
+print('__iter__' in dir(a)) # True
+print('__next__' in dir(a)) # False
+
+b = iter(a)                 # we bring it into the context of an iterator
+
+print('__iter__' in dir(a)) # True
+print('__next__' in dir(a)) # True
+```
+
+Putting a generator in place of the `__iter__` method is not only an elegant way of writing it, but it also serves a purpose for *encapsulating* the `__next__` method inside of the iterator instance itself, since if you can remember-- we weren't even able to use `__next__` until our object became an iterator anyway!
