@@ -21,6 +21,8 @@ You'll find that Python strictly enforces the `foreach` control structure that c
 
 But in understanding this fundamental concept in Python, we actually allow ourselves to write more elegant and terse code. So let's incrementally tackle this topic.
 
+![image](https://github.com/user-attachments/assets/cfdcccea-b92d-4d51-adf6-64de62d3f673)
+
 ## Iterators
 
 We'll start by defining *iterators* as objects we can traverse through one item at a time. Think anything you can pass into a `for` loop.
@@ -78,6 +80,8 @@ next(b) # 5
 
 For the keen-eyed, you might have notice that even though we're allowed to traverse this iterable using `__next__` or a `for` loop, you can actually keep getting the next value *infinitely*!
 
+![image](https://github.com/user-attachments/assets/ba9d772c-1681-40b5-bb72-568617f64b4a)
+
 If this infinite looping behavior is not your intention, you can simply add a *base case* to your `__next__` method, by raising a `StopIteration` exception.
 
 ```python
@@ -107,6 +111,8 @@ print('__next__' in dir(a)) # False
 That's odd, the list object has an `__iter__` method, but no `__next__`! Why is that?
 
 ## Generators
+
+![image](https://github.com/user-attachments/assets/f46e1279-9046-4ef4-b1bd-5ecc014cc3eb)
 
 Generators are special kinds of functions that instead of returning a single value, returns an *iterator* object. But instead of using the `return` keyword, it *implicility* returns the iterator object using `yield`. Let's see this in action by reimplementing our Fibonacci iterator.
 
@@ -180,6 +186,8 @@ print('__next__' in dir(x)) # True
 
 Since generators do have instances of the `__iter__` and `__next__` method, we can confirm that it is infact an iterator. And how is this relevant?
 
+![image](https://github.com/user-attachments/assets/1433856a-3fda-49d3-9c1c-1afec52ef3aa)
+
 Recall that:
 - *Any* function becomes a generator when it has a `yield` inside of it.
 - Generators are simply functions that return an iterator object, with it's `__next__` function as its definition (kind of)
@@ -211,6 +219,8 @@ In fact, I would go as far as to say that coding in Python becoems infeasible wi
 Lazy evaluation is *not* a new concept in Computer Science, in fact it's a byproduct of functional programming, wherein we may delay the execution of a transformation on data up until the point where we actually need it.
 
 A good analogy of this is being given ingredients for a meal that you have to cook tonight. With all of those ingredients and your cooking gear and whatnot, you can argue that you technically already have the meal, you are simply not making it until tonight. This could be for various reasons, one of which could be that it is easier to store the ingredients than the entire meal itself.
+
+![image](https://github.com/user-attachments/assets/8baa39c0-aa9c-41a6-9467-4f04647cdcfa)
 
 When we created the `Fibonacci` generator, we could argue that we did have the Fibonacci numbers up to 144, we just simply weren't calculating them until we had to. This approach saves resources from our program as we don't end up keeping all of the memory we need *up front*, i.e. if we wanted to keep the Fibonacci numbers less than ten million, but we're still *technically* storing the numbers.
 
