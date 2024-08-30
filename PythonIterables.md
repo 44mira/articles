@@ -216,6 +216,6 @@ When we created the `Fibonacci` generator, we could argue that we did have the F
 
 Think of our ubiquitous `range` function, an example of a generator, as we know that `range` doesn't *keep* a list in memory, but rather *generates* the numbers sequentially (we know this by the fact that we can only traverse the iterable in the direction indicated by the `step` parameter).
 
-In fact, you should go ahead and try to implement some pre-existing generators in your free time, to see how well you understand Python! Notable generators are `enumerate`, `zip`, `map`, `filter`. As for `range`, it actually requires a bit more pre-requisite knowledge that you may originally expect, so we'll be covering them on a follow-up article.
+In fact, you should go ahead and try to implement some pre-existing generators in your free time, to see how well you understand Python! Notable generators are `enumerate`, `zip`, `map`, `filter`. As for `range`, it actually requires a bit more pre-requisite knowledge that you may originally expect, so we'll be covering it on a follow-up article.
 
 Good luck!
