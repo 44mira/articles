@@ -5,7 +5,7 @@ tags:
   - articles
 ---
 
-# Understanding Python Iterables
+# Understanding Python Iterables: Generators and Laziness
 
 It is inarguable that one of Python's strongest suits is how it deals with *iterables*, or traversable objects.
 
@@ -201,3 +201,21 @@ print('__next__' in dir(a)) # True
 ```
 
 Putting a generator in place of the `__iter__` method is not only an elegant way of writing it, but it also serves a purpose for *encapsulating* the `__next__` method inside of the iterator instance itself, since if you can remember-- we weren't even able to use `__next__` until our object became an iterator anyway!
+
+## Laziness
+
+Besides the fact that knowing how a language works is pretty cool, generators (and by extension, iterators) also serve as a massive point of optimization for most Python programs. Which we can just derive from its name, it generates values.
+
+In fact, I would go as far as to say that coding in Python becoems infeasible without generators, all because of their *lazy evaluation*.
+
+Lazy evaluation is *not* a new concept in Computer Science, in fact it's a byproduct of functional programming, wherein we may delay the execution of a transformation on data up until the point where we actually need it.
+
+A good analogy of this is being given ingredients for a meal that you have to cook tonight. With all of those ingredients and your cooking gear and whatnot, you can argue that you technically already have the meal, you are simply not making it until tonight. This could be for various reasons, one of which could be that it is easier to store the ingredients than the entire meal itself.
+
+When we created the `Fibonacci` generator, we could argue that we did have the Fibonacci numbers up to 144, we just simply weren't calculating them until we had to. This approach saves resources from our program as we don't end up keeping all of the memory we need *up front*, i.e. if we wanted to keep the Fibonacci numbers less than ten million, but we're still *technically* storing the numbers.
+
+Think of our ubiquitous `range` function, an example of a generator, as we know that `range` doesn't *keep* a list in memory, but rather *generates* the numbers sequentially (we know this by the fact that we can only traverse the iterable in the direction indicated by the `step` parameter).
+
+In fact, you should go ahead and try to implement some pre-existing generators in your free time, to see how well you understand Python! Notable generators are `enumerate`, `zip`, `map`, `filter`. As for `range`, it actually requires a bit more pre-requisite knowledge that you may originally expect, so we'll be covering them on a follow-up article.
+
+Good luck!
