@@ -49,7 +49,7 @@ for n in Fibonacci():
 
 All that we have to define are the `__iter__` and `__next__` methods!
 
-`__iter__` is the object that gets returned whenever our object is invoked in the context of an iterable (in this case it is invoked as the iterable for a `for` loop). In this example, we use it as an *initialization* function of sorts, but you can just think of it as the *constructor* for your iterable instance.
+`__iter__` returns the object to be used for iteration whenever our object is invoked in the context of an iterable (in this case it is invoked as the iterable for a `for` loop). In this example, we use it as an *initialization* function of sorts, but you can just think of it as the *constructor* for your iterable instance.
 
 > If that had too much jargon, all that you need to know is that what `__iter__` returns is the object to be used in iteration!
 
@@ -183,7 +183,7 @@ Since generators do have instances of the `__iter__` and `__next__` method, we c
 Recall that:
     - *Any* function becomes a generator when it has a `yield` inside of it.
     - Generators are simply functions that return an iterator object, with it's `__next__` function as its definition (kind of)
-    - `__iter__` method is used to implicity return the object used for iteration whenever the context calls for 
+    - `__iter__` method is used to implicity return the object used for iteration whenever the context calls for it
         - These contexts include being casted into a iterator with `iter`, being used as an iterable for a `for` loop, and as we'll later learn: being *unpacked*.
 
 We can infer that, under the hood, native Python iterables define their `__iter__` methods as generators, making the `__next__` absent from the class definition, but not from its iterator instance.
