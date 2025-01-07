@@ -71,6 +71,8 @@ Setting up the variants allow you to make an instance of the parent component an
 
 ![image](https://github.com/user-attachments/assets/e6fcdb92-2adf-41eb-841d-9e4349267f3a)
 
+And to implement variants in your code is a matter of creating CSS classes for them, or by using variants in component libraries such as `shadcn`.
+
 ## Conclusion
 
 Don't be scared to try out Figma (like I initially was)! I can attest to it being a pleasure to work with. Making mockups is definitely an underrated skill for programmers, often times increasing a team's size solely to add a designer for that purpose.
