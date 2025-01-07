@@ -20,9 +20,11 @@ This is also a good idea to do in Figma as not only can you visually see the col
 
 > NOTE: Programmers love making variables for repeating things!
 
-<!-- insert image here of palette -->
+![image](https://github.com/user-attachments/assets/16b44651-072b-4e8f-ac70-fa3d98d01dc1)
 
 A good way of deciding colors for your palette is by getting existing ones online (a site I used a lot back when I was doing pixel art was [Lospec](lospec.com)), using [Realtime Colors](https://www.realtimecolors.com/?colors=050315-fbfbfe-2f27ce-dedcff-433bff&fonts=Inter-Inter), or as a last resort, making your own using Color Theory. Of course I won't be able to tackle color theory in an article about Figma but do check out [hue shifting](https://www.blue-canary.net/miniature-painting/painting-tips-and-guides/hue-shifting/) for creating more vibrant shades of colors.
+
+![image](https://github.com/user-attachments/assets/bd877e72-c91c-407c-a977-9d7bfa623f47)
 
 > KEY FEATURE: Library variables
 
@@ -34,16 +36,18 @@ That is, to equate Figma frames as `div`s. This doesn't mean to just imagine the
 
 For example: when creating a mockup for a navbar, it is common to have a split design, to have a logo on the left and the menus on right. In this example, I am designing my taskbar which has workspaces on the left and laptop battery power on the right.
 
-<!-- navbar example -->
+![image](https://github.com/user-attachments/assets/89853bf6-22e5-4624-84d4-25687e1e0cfa)
 
 We could do this by absolutely positioning everything and just figuring it out when coding, or:
 
-<!-- navbar example but highlighted divs -->
+![image](https://github.com/user-attachments/assets/3310bec1-f3aa-423b-80aa-25536fb5a85f)
 > The divs are highlighted here for demonstration purposes
 
 We could setup the mockup in a way that the divisions are already declared. Not only does this make the design process easier, but also makes the coding require less overhead from laying out the `div`s in a way that resembles the design.
 
 Another reason to do this, and probably one of the best features of Figma, is that we can set our frames into [*auto-layout*](https://help.figma.com/hc/en-us/articles/5731482952599-Add-auto-layout-to-a-design) mode. This initially feels confusing to look at, but my god does it save so much time.
+
+![image](https://github.com/user-attachments/assets/eb2bec4c-50dc-4d5e-b69f-3ab68425163c)
 
 A good parallel to auto-layout is the `flexbox` property of `div`s, wherein the arrangement of content can be declared with properties, including padding, spacing, and alignment. If you only get to take away one thing from this article I hope it is this one. I cannot emphasize how much easier designing gets when you start using this feature, especially since it can just get translated into `display: flexbox` in CSS, or `flex` in Tailwind.
 
@@ -57,7 +61,7 @@ If you have used *any* web development framework in the past decade or so, you h
 
 Like palette swatches, I create a separate frame just to hold all of my parent components, for easy reference and editing.
 
-<!-- insert picture of components -->
+![image](https://github.com/user-attachments/assets/88fedd35-d1bb-4416-a572-2bb91e93939e)
 
 Moreover, components can be setup to have *variants*, that being the same component *technically* speaking, but with specific properties differing, which can be used to trigger appearance changes.
 
@@ -65,7 +69,7 @@ An example of this would be `hover=true` and `hover=false` variants. This naming
 
 Setting up the variants allow you to make an instance of the parent component and simply assign the property in the instance, with a checkbox for boolean attributes, and a textfield for anything else.
 
-<!-- insert pictures of variants -->
+![image](https://github.com/user-attachments/assets/e6fcdb92-2adf-41eb-841d-9e4349267f3a)
 
 ## Conclusion
 
