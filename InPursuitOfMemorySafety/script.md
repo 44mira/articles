@@ -286,7 +286,7 @@ it is also much more efficient CPU-wise to <span style="color:green">*free memor
 Arena Allocators
 ==
 
-```c +line_numbers 
+```c +line_numbers {all|3-7|9-21|10-11|13-14|16-20}
 #include <stdlib.h>
 
 struct Arena {
@@ -323,7 +323,7 @@ Arena Allocators
 <!-- column_layout: [1,5,1] -->
 <!-- column: 1 -->
 
-```c +line_numbers
+```c +line_numbers {all|2|0}
 void* arena_alloc(struct Arena* arena, size_t size) {
   if (size + arena->idx > arena->size) return NULL;
 
@@ -332,7 +332,7 @@ void* arena_alloc(struct Arena* arena, size_t size) {
 }
 ```
 
-```c +line_numbers
+```c +line_numbers {0|all|4|8-11|13-14|16|all}
 char* uppercase(struct Arena* arena, const char* str, size_t size);
 
 int main(void) {
@@ -379,3 +379,31 @@ this arena for your usecase!
   - Function-scoped arenas that are used for temporary allocations
 - So much more! 
   - (I think)
+
+<!-- end_slide -->
+
+First-class Arenas
+==
+
+```file +line_numbers {all|10-11|13|5-7,16|all}
+path: test.zig
+language: zig
+```
+
+```bash +exec
+zig run ./test.zig
+```
+
+<!-- end_slide -->
+
+<!-- font_size: 2 -->
+<!-- new_lines: 8 -->
+```c
+  free(presentation);
+```
+
+<!-- end_slide -->
+
+<!-- jump_to_middle -->
+thanks for watching!
+==
