@@ -75,28 +75,6 @@ memory safety by thinking of <span style="color:red">*when*</span> should your r
 <span style="color:green">*grouping together*</span> references that share the same lifetimes, instead of
 *trying to think of them* <span style="color:red">*individually*</span>.
 
-
-<!-- end_slide -->
-
-Lifetimes
-==
-
-<!-- font_size: 2 -->
-<!-- new_line -->
-```c +line_numbers
-char* uppercase(const char* str, size_t buffSize) {
-  char* result = (char*) malloc (buffSize);
-
-  int i;
-  for (i = 0; str[i] != '\0'; i++) {
-    result[i] = toupper(str[i]);
-  }
-  result[i] = '\0';
-
-  return result;
-}
-```
-
 <!-- end_slide -->
 
 Lifetimes
@@ -118,7 +96,9 @@ language: c
 Structs
 ==
 
+<!-- font_size: 2 -->
 - A very common example of this would be when it comes to allocating resources for attributes of a struct.
+<!-- font_size: 1 -->
 
 <!-- pause -->
 
