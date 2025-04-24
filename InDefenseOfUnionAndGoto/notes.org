@@ -1,0 +1,166 @@
+* In defense of `union` and `goto`
+
+  - Like mentioned in my previous video, memory safety has been an issue since
+    the dawn of programming, which is the main reason why an entire category of 
+    /memory safe/ languages exist in the first place.
+
+  - And now, there's currently a big push by the American government, the CISA 
+    and the FBI in particular, to move away from memory unsafe languages or 
+    produce a memory safety roadmap for existing government software that use 
+    these aforementioned languages.
+
+  - Of course, entirely migrating to a different language especially when most
+    of the existing software is written in languages like C/C++, is a
+    monumental task. Which is why many people have taken it into their own
+    hands the responsibility of /extending/ C/C++ to be /safer/, or entirely
+    memory safe, instead of rewriting their entire codebase.
+
+  - One of these attempts in particular caught my attention, /TrapC/.
+
+** Undefined behavior
+
+   - Before even reading the rest of the language spec you are met with its
+     title: *"TrapC: Memory Safe C Programming with No UB"*
+
+   - Although I agree that undefined behavior is quite annoying, we must not
+     forget that languages like C's edge on performance /hinge/ on undefined
+     behavior existing! Having to not consider entire branches of logic
+     (i.e. accessing uninitialized arrays, null checking every pointer 
+     dereference), lets the compiler perform absolutely heinous optimizations, 
+     as long as you don't actually invoke the undefined branches.
+
+     - This is in theme with the rest of the language's design principles, that is
+       to sacrifice these safety checks for a staggering increase in its
+       efficiency and the ability to get away with the fastest implementation for
+       target architectures. The compiler offloads this responsibility to the 
+       programmer.
+     - And if the use case demanded for C in the first place, specifically for
+       real-time software, you should /NOT/ be willing to take that performance
+       hit.
+   
+     - But let's give =TrapC= the benefit of the doubt that maybe it is worth to
+       do this change for the sake of memory safety.
+
+** ~union~ and ~goto~
+   #+BEGIN_QUOTE
+   - TrapC removes 2 keywords: ‘goto’ and ‘union’, as unsafe and having been 
+   widely deprecated from use
+   #+END_QUOTE
+
+   - Now to say that this change is outrageous is an understatement. It is
+     /harmful/ and outright /offensive/ to the language itself. People who
+     don't know better would actually believe these statements as it comes
+     from the false authority of a language proponent.
+
+   - Unions have never been deprecated, and ~goto~ still has its use cases,
+     such as greatly improving readability and reducing code duplication for
+     error-handling and escaping nested loops.
+
+   - "So we tried C, we didn't understand why certain features existed or they
+     weren't necessary for our use case, so we've decided that everyone else
+     /also/ doesn't know how to use it and therefore it shouldn't exist for all
+     other use cases."
+
+   - In fact, instead of just ragging this completely arrogant change, let's go
+     over how you can properly use these language features, specifically union.
+
+** Unions
+   - For those who are unfamiliar, unions are a type construct which holds
+     attributes that share the same memory, the alignment of the union being
+     the largest type in it.
+
+   - By itself, unions struggle to see any practical application outside of
+     programs that concern themselves with bitwise operations.
+
+     - As it turns out, being able to reinterpret values as other types does
+       offer clever ways of doing bitwise operations.
+
+   - But if we really think about it, using a union's field usually entails 
+     that we only care about that interpretation for that specific variable.
+     That is, if we define a union type and access an ~int~ field, we would
+     only ever want to do operations on it that we could do on an ~int~.
+
+     - We can name this behavior as unions having an /active/ state. If we
+       access a union as a specific type during an assignment, we would only 
+       ever want to access it as that type.
+
+     - You'll find that thinking of unions as a /variant/ of its active state
+       allows us to use unions as how would probably expect type unions to be
+       used.
+
+   - Now the issue becomes: how do we know what an instance of a union's active
+     type is? And the answer is consistent with the mindset that you should
+     have if you've decided to use the language-- you implement it yourself!
+
+     - We can couple the union type in a struct with an attribute that tells us
+       what the union's active type is. Moreover, since we only really need
+       some representation to check what a union's active type is, we can use
+       an enumerated type for this, increasing its readability and makes the
+       compiler check whether switch cases on that type are exhaustive when you
+       turn on warnings.
+
+     - So we observe that the main type constructs of the language interact
+       harmoniously to create a feature than you probably might be taking for
+       granted in higher level languages, type polymorphism.
+
+       - Or the ability to do separate code branches depending on the type of
+         a variable, without having to resort to hacks such as ~void~ pointers.
+
+   - In fact, this type of structure has a name, a /tagged union/. The tag here
+     is our extra attribute on our wrapper that determines the union's active
+     type.
+
+     - Tagged unions can be seen in various modern languages, most prominently
+       in Rust (where they are referred to as Enums), Zig, and languages that
+       heavily emphasize pattern matching.
+
+   - Applications of tagged unions include but are not limited to:
+     - the ~Result<T,E>~ type, which in of itself enables the concept of passing
+       "errors as values," which is behavior that is way easier to deal with
+       than throwing exceptions from anywhere
+     - the ~Option<T>~ type, which allows encapsulation of null values.
+       - Interestingly enough, we don't actually need a union for this type,
+         but the pattern of having a tag dictate the active type makes it still
+         fall into this category.
+     - Lexical tokens ~Token~, for writing leaner parsers that allow for
+       compile-time type checks on your Token variants.
+     - and other use cases that require /alternation/ over types. Think of
+       tagged unions as being able to "boolean or" together types, while
+       structs let you "boolean and" them.
+
+** ~goto~
+
+   - Though I won't be covering goto as in depth in this video (as they already
+     do pretty much what you expect them to do, and in a manner that you also
+     expect to do it with), know that I do share this same sentiment with it.
+
+   - Edsger Dijkstra, a person who you should probably already know 1-2 years
+     in any computer science related degree, has an article talking about when
+     goto statement is considered harmful, entitled "Goto statement is 
+     considered harmful."
+
+     - And really the main point he was getting at in said paper is the
+       importance of being able to reason about your program as it grows 
+       dynamically in complexity, by knowing the sequence of instructions to
+       get back to some point of a process after being stopped by some 
+       arbitrary action?
+
+     - Or to put simply, how do you get back to a point in your program by
+       tracing the code sequentially?
+
+   - Now I believe that his article, along with this idea of ~goto~ being harmful
+     has been terribly lifted out of context and echoed throughout the
+     pedagogy of programming. That is "do not use ~goto~, ever".
+
+   - We should, as critical thinkers, be able to discern when ideas and 
+     principles are true, especially after factoring in context. ~goto~, and any
+     language feature for that matter, when thought of in a vacuum, should 
+     neither be good or bad. ~goto~ becomes bad when it obscures our ability
+     to reason about the dynamic nature of our program, and good when it
+     improves it. 
+     
+   - In fact, it is so useful for handling exit cases of functions that with
+     one quick lookup, you can see that ~goto~ is found all over the Linux
+     kernel. Point is, if ~goto~ doesn't hinder your ability to trace your
+     program, even if there's a more idiomatic way of achieving your desired
+     behavior, it is not a bad use of it.
