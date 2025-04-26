@@ -377,3 +377,10 @@ err_free_irq:
 }
 ```
 
+## Conclusion
+
+If C were to have any warts as a language, I do not believe it is with `union` or `goto`. I do not think it's perfect, especially when it comes to a lack of namespaces, the lack of a dedicated build system, and a substandard standard library (i.e. `gets`), but none of these flaws stop it from being an incredibly versatile language and one that makes you feel like a *real* programmer after writing a functioning program in it.
+
+In fact, `union` and `goto` being as open-ended as they are provide the biggest opportunity for clever programmers to create ingenious solutions to their problems, and if you've programmed even the littlest bit, you'd know that's the most *fun* part of all of it.
+
+Enjoy programming.
